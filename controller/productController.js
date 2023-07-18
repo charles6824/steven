@@ -23,6 +23,7 @@ const createProduct = async(req, res) => {
     }
 };
 
+
 const getAllProduct = async(req, res) => {
 
     try{
@@ -249,6 +250,15 @@ const getProductReview = async(req, res) => {
     }
 }
 
+const getCategories =  async (req, res) => {
+    try {
+      const category = req.params.category;
+      const products = await Product.find({ category: category });
+      res.json({message: "category fetched", products});
+    } catch (error) {
+      res.status(400).json({ message: 'Failed to fetch products by category' });
+    }
+  };
 
 export {createProduct, 
         getAllProduct, 
@@ -262,4 +272,6 @@ export {createProduct,
         createProductReview,
         getProductReview, 
         updateDiscountedProduct,
-        getFeaturedProducts}
+        getFeaturedProducts,
+        getCategories
+    }

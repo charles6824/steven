@@ -4,6 +4,7 @@ import{protect, admin, user} from '../middleware/authMiddleware.js'
 import { bestSellerProduct, 
     createProduct, createProductReview, 
     deleteProduct, getAllProduct, 
+    getCategories, 
     getDiscountedProduct, getFeaturedProducts, 
     getNewProduct, getProductId, getProductReview, 
     getRelatedProduct, updateDiscountedProduct, updateProduct } from '../controller/productController.js'
@@ -29,6 +30,10 @@ router.get("/featured", getFeaturedProducts)
 //best seller
 
 router.get('/best', bestSellerProduct);
+
+//categories
+
+router.get('/:category', getCategories)
 
 //get discount product
 
