@@ -7,7 +7,7 @@ import { bestSellerProduct,
     getCategories, 
     getDiscountedProduct, getFeaturedProducts, 
     getNewProduct, getProductId, getProductReview, 
-    getRelatedProduct, updateDiscountedProduct, updateProduct } from '../controller/productController.js'
+    getRelatedProduct, topSales, updateDiscountedProduct, updateProduct } from '../controller/productController.js'
 const router = express.Router()
 
 
@@ -19,6 +19,8 @@ router.post('/', protect, admin, createProduct);
 
 router.get('/', getAllProduct);
 
+//topSales
+router.get('/top-sales', topSales)
 
 // get new product
 

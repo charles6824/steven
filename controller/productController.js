@@ -24,6 +24,24 @@ const createProduct = async(req, res) => {
 };
 
 
+
+// Get top-selling products
+const topSales = async (req, res) => {
+    try {
+      const topSales = await Product.find().sort({ salesCount: -1 }).limit(10);
+      if(topSales){
+        res.json({message: "product fetched", topSales})
+      }else{
+        res.status(400).json({ message: 'Failed to fetch top-selling products' });
+      }  
+    } catch (err) {
+      throw new Error(err)
+    }
+  };
+  
+ 
+  
+
 const getAllProduct = async(req, res) => {
 
     try{
@@ -273,5 +291,6 @@ export {createProduct,
         getProductReview, 
         updateDiscountedProduct,
         getFeaturedProducts,
-        getCategories
+        getCategories,
+        topSales
     }
