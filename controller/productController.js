@@ -26,7 +26,7 @@ const createProduct = async(req, res) => {
 
 const getTopSixProducts = (req, res) => {
     // Sort products based on average rating in descending order
-    const sortedProducts = products.sort((a, b) => {
+    const sortedProducts = Product.sort((a, b) => {
       const averageRatingA = a.ratings.reduce((sum, rating) => sum + rating, 0) / a.ratings.length;
       const averageRatingB = b.ratings.reduce((sum, rating) => sum + rating, 0) / b.ratings.length;
       return averageRatingB - averageRatingA;
