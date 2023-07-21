@@ -23,10 +23,22 @@ const createProduct = async(req, res) => {
     }
 };
 
+const getTopSixNewProducts = async(req, res) => {
+    try {
+        const sortedProducts = await Product.sort((a, b) => b.createdAt - a.createdAt);
+        if(sortedProducts){
+            res.json({message: 'product retrieved', sortedProducts})
+        }else{
+            res.status(400).json({message: 'no product found'})
+        }
+    } catch (error) {
+        
+    }
+};
 
-const getTopSixProducts = (req, res) => {
-    // Sort products based on average rating in descending order
-    const sortedProducts = Product.sort((a, b) => {
+
+const getTopSixProducts = async(req, res) => {
+    const sortedProducts = await Product.sort((a, b) => {
       const averageRatingA = a.ratings.reduce((sum, rating) => sum + rating, 0) / a.ratings.length;
       const averageRatingB = b.ratings.reduce((sum, rating) => sum + rating, 0) / b.ratings.length;
       return averageRatingB - averageRatingA;
@@ -307,5 +319,6 @@ export {createProduct,
         getFeaturedProducts,
         getCategories,
         topSales,
-        getTopSixProducts
+        getTopSixProducts,
+        getTopSixNewProducts
     }
