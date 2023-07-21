@@ -25,12 +25,17 @@ const createProduct = async(req, res) => {
 
 const getTopSixNewProducts = async(req, res) => {
     try {
+        const product = await Product.find({})
+        if(product){
         const sortedProducts = await Product.sort((a, b) => b.createdAt - a.createdAt);
         if(sortedProducts){
             res.json({message: 'product retrieved', sortedProducts})
         }else{
             res.status(400).json({message: 'no product found'})
         }
+    }else{
+        res.status(400).json({messsage: 'product not found'})
+    }
     } catch (error) {
         
     }
