@@ -2,7 +2,39 @@ import User from "../models/userModel.js";
 import bcrypt from 'bcrypt'
 import randomstring from "randomstring";
 import generateToken from '../utils/generateToken.js'
+import nodemailer from "nodemailer"
 
+
+
+
+const transporter = nodemailer.createTransport({
+    host: 'your-smtp-host',
+    port: 587,
+    secure: false,
+    auth: {
+      user: 'your-email@example.com',
+      pass: 'your-email-password',
+    },
+  });
+
+
+  const sendMail = async (req, res) => {
+    try {
+      const { to, subject, text } = req.body;
+  
+      const mailOptions = {
+        from: 'your-email@example.com',
+        to,
+        subject,
+        text,
+      };
+  
+      await transporter.sendMail(mailOptions);
+      res.json({ message: 'Email sent successfully' });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to send email' });
+    }
+  }
 const register = async(req, res) => {
     try{
         const {name, email, password, address} = req.body
@@ -113,4 +145,4 @@ const logOut = async(req, res) =>{
 }
 
 
-export {register, login, forgetPassword, changePassword, logOut, }
+export {register, login, forgetPassword, changePassword, logOut, sendMail}

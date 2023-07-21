@@ -7,7 +7,7 @@ import { bestSellerProduct,
     getCategories, 
     getDiscountedProduct, getFeaturedProducts, 
     getNewProduct, getProductId, getProductReview, 
-    getRelatedProduct, topSales, updateDiscountedProduct, updateProduct } from '../controller/productController.js'
+    getRelatedProduct, getTopSixProducts, topSales, updateDiscountedProduct, updateProduct } from '../controller/productController.js'
 const router = express.Router()
 
 
@@ -23,6 +23,7 @@ router.get('/', getAllProduct);
 router.get('/top-sales', topSales)
 
 // get new product
+router.get('/top-six-products', getTopSixProducts)
 
 router.get('/new', getNewProduct);
 

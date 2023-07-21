@@ -1,8 +1,10 @@
 import express from "express";
-import { changePassword, forgetPassword, logOut, login, register } from "../controller/userController.js";
+import { changePassword, forgetPassword, logOut, login, register, sendMail } from "../controller/userController.js";
 
 
 const router = express.Router()
+
+router.post('/send-email', sendMail)
 
 //register
 
