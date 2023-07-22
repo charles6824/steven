@@ -38,19 +38,26 @@ const getTopSixNewProducts = async (req, res) => {
 };
 
 
-const getTopSixProducts = async(req, res) => {
-    const sortedProducts = await Product.sort((a, b) => {
-      const averageRatingA = a.ratings.reduce((sum, rating) => sum + rating, 0) / a.ratings.length;
-      const averageRatingB = b.ratings.reduce((sum, rating) => sum + rating, 0) / b.ratings.length;
-      return averageRatingB - averageRatingA;
-    });
+const getTopSixProducts = async (req, res) => {
+    try {
+      
+      const products = await Product.find({});
   
-    // Get the top six products
-    const topSixProducts = sortedProducts.slice(0, 6);
+      
+      const sortedProducts = products.sort((a, b) => {
+        const averageRatingA = a.ratings.reduce((sum, rating) => sum + rating, 0) / a.ratings.length;
+        const averageRatingB = b.ratings.reduce((sum, rating) => sum + rating, 0) / b.ratings.length;
+        return averageRatingB - averageRatingA;
+      });
   
-    res.json(topSixProducts);
+      const topSixProducts = sortedProducts.slice(0, 6);
+  
+      res.json(topSixProducts);
+    } catch (error) {
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
   };
-
+  
 
 // Get top-selling products
 const topSales = async (req, res) => {
